@@ -104,4 +104,6 @@ void app_main(void)
 	}
 	
 	ESP_LOGI(TAG, "Set up task successfully!");
+	
+	// Finish Lab02 Esp32
 }
