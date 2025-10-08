@@ -11,10 +11,26 @@ const TickType_t run_ms = 2000; // chạy trong 2000 ms (2s)
 
 static TickType_t global_start_tick = 0;
 
+static TaskHandle_t last = NULL;
+
+static void vMonitorCurrentTask(void *pv)
+{
+    TaskHandle_t cur = xTaskGetCurrentTaskHandle();
+    if (cur != last) {
+		TickType_t tick_before = xTaskGetTickCount();
+
+		const char *name = pcTaskGetName(cur);
+        ESP_LOGI(TAG, "[Tick %u] Current running: %s",
+                 (unsigned)tick_before, name ? name : "<?>");
+        last = cur;
+    }
+}
+
 static void do_work_us(uint32_t work_us)
 {
     int64_t t0 = esp_timer_get_time(); // microseconds
     while ((esp_timer_get_time() - t0) < (int64_t)work_us) {
+		vMonitorCurrentTask(NULL);
         asm volatile("nop");
     }
 }
@@ -36,6 +52,8 @@ void vTaskFunctionA(void *pvParameters)
                  pcTaskName,
                  (unsigned)intended_us,
                  (unsigned)((tick_before - global_start_tick) * portTICK_PERIOD_MS));
+                 
+        vMonitorCurrentTask(NULL);
 
         do_work_us(intended_us);
 
@@ -75,6 +93,8 @@ void vTaskFunctionB(void *pvParameters)
 
         ESP_LOGI(TAG, "[Tick %u] %s begin work (intended %u us)",
                  (unsigned)tick_before, pcTaskName, (unsigned)intended_us);
+                 
+        vMonitorCurrentTask(NULL);
 
         do_work_us(intended_us);
 
@@ -105,6 +125,8 @@ void vTaskHigh(void *pv)
         int64_t us_before = esp_timer_get_time();
 
         ESP_LOGI(TAG, "[Tick %u] High begin work (intended %u us)", (unsigned)tick_before, (unsigned)intended_us);
+        
+        vMonitorCurrentTask(NULL);
 
         do_work_us(intended_us);
 
@@ -131,7 +153,7 @@ void app_main(void)
              configTICK_RATE_HZ, tick_ms);
 
     global_start_tick = xTaskGetTickCount();
-
+    
     xTaskCreatePinnedToCore(vTaskFunctionA,  "TaskA", 4096, "Task A", 1, NULL, 0);
     xTaskCreatePinnedToCore(vTaskFunctionB, "TaskB", 4096, "Task B", 1, NULL, 0);
     xTaskCreatePinnedToCore(vTaskHigh,     "High",  4096, NULL,     2, NULL, 0);
