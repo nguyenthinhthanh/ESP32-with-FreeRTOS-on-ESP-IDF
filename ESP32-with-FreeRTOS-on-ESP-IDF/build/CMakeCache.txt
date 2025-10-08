@@ -15,7 +15,7 @@
 ########################
 
 //No help, variable specified on the command line.
-CCACHE_ENABLE:UNINITIALIZED=1
+CCACHE_ENABLE:UNINITIALIZED=0
 
 //Path to a program.
 CCACHE_FOUND:FILEPATH=D:/ESP-IDF/Espressif/tools/ccache/4.8/ccache-4.8-windows-x86_64/ccache.exe
@@ -307,6 +307,9 @@ ENABLE_PROGRAMS:BOOL=
 //Build Mbed TLS tests.
 ENABLE_TESTING:BOOL=
 
+//No help, variable specified on the command line.
+ESP_PLATFORM:UNINITIALIZED=1
+
 //Generate the auto-generated files as needed
 GEN_FILES:BOOL=
 
@@ -345,6 +348,15 @@ Mbed TLS_IS_TOP_LEVEL:STATIC=OFF
 
 //Value Computed by CMake
 Mbed TLS_SOURCE_DIR:STATIC=D:/ESP-IDF/Espressif/frameworks/esp-idf-v5.3.1/components/mbedtls/mbedtls
+
+//No help, variable specified on the command line.
+PYTHON:UNINITIALIZED=D:\ESP-IDF\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe
+
+//No help, variable specified on the command line.
+PYTHON_DEPS_CHECKED:UNINITIALIZED=1
+
+//No help, variable specified on the command line.
+SDKCONFIG:UNINITIALIZED=sdkconfig
 
 //Allow unsafe builds. These builds ARE NOT SECURE.
 UNSAFE_BUILD:BOOL=OFF
@@ -580,16 +592,15 @@ C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS:INTERNAL=1
 //Details about finding Git
 FIND_PACKAGE_MESSAGE_DETAILS_Git:INTERNAL=[D:/Git/Git/cmd/git.exe][v2.46.0.windows.1()]
 //Details about finding Python3
-FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[D:/python/python.exe][cfound components: Interpreter ][v3.12.0()]
+FIND_PACKAGE_MESSAGE_DETAILS_Python3:INTERNAL=[D:/ESP-IDF/Espressif/python_env/idf5.3_py3.11_env/Scripts/python.exe][cfound components: Interpreter ][v3.11.2()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //ADVANCED property for variable: GIT_EXECUTABLE
 GIT_EXECUTABLE-ADVANCED:INTERNAL=1
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=C:/Program Files (x86)/app-template
-//Path to a program.
-_Python3_EXECUTABLE:INTERNAL=D:/python/python.exe
+_Python3_EXECUTABLE:INTERNAL=D:/ESP-IDF/Espressif/python_env/idf5.3_py3.11_env/Scripts/python.exe
 //Python3 Properties
-_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;12;0;32;;;D:\python\Lib;D:\python\Lib;D:\python\Lib\site-packages;D:\python\Lib\site-packages
-_Python3_INTERPRETER_SIGNATURE:INTERNAL=65d845b4174f4e51f11f700963e29587
+_Python3_INTERPRETER_PROPERTIES:INTERNAL=Python;3;11;2;32;;;D:\ESP-IDF\Espressif\tools\idf-python\3.11.2\Lib;D:\ESP-IDF\Espressif\tools\idf-python\3.11.2\Lib;D:\ESP-IDF\Espressif\python_env\idf5.3_py3.11_env\Lib\site-packages;D:\ESP-IDF\Espressif\python_env\idf5.3_py3.11_env\Lib\site-packages
+_Python3_INTERPRETER_SIGNATURE:INTERNAL=25fad22f1b7f08f5b67e0b90f043bcad
 
